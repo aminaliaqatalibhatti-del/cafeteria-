@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brew Haven Café</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Aesthetic script font for headings/logo -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Core page styling for readability and accessibility */
+    :root{
+      --bg:#000;
+      --muted:rgba(255,255,255,0.85);
+      --panel:rgba(255,255,255,0.03);
+      --accent:#ffd166;
+      --max-width:1100px;
+    }
+
+    html { font-size:16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--muted);
+      font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      margin:0;
+    }
+
+    /* Layout container */
+    .container { max-width: var(--max-width); margin:0 auto; padding:1rem; }
+
+    /* Make sections transparent so the black shows through, but add subtle panels */
+    .section,
+    .header,
+    .footer { background: transparent; }
+
+    /* Centered hero layout */
+    .hero {
+      min-height: 72vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero .hero-content { z-index: 3; max-width: 900px; }
+    .hero-title{font-size:clamp(2.4rem,6.5vw,5rem);margin:.2rem 0}
+    .hero p{font-size:clamp(1rem,2.2vw,1.15rem);opacity:.95}
+
+    /* Buttons */
+    .btn {
+      background-color: var(--accent);
+      color: #000;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+
+    /* Aesthetic heading and logo font */
+    .logo, h1, h2, h3, h4, h5, h6 {
+      font-family: 'Great Vibes', 'Poppins', serif;
+      letter-spacing: 0.5px;
+      color: #fff;
+    }
+
+    /* Slightly larger logo styling */
+    .logo { font-size: 1.4rem; display:inline-flex; align-items:center; gap:.4rem }
+
+    /* Cards and small panels */
+    .coffee-card,
+    .menu-card,
+    .review-card,
+    .reservation-form,
+    .newsletter input,
+    .newsletter button { background: var(--panel); color: var(--muted); }
+
+    /* Skip link for keyboard users */
+    .skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{position:static;left:0;top:0;width:auto;height:auto;padding:.5rem 1rem;background:#fff;color:#000;z-index:9999}
+
+    /* Accessible hidden label */
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+    /* Nav links readability */
+    .nav-links a{color:var(--muted);padding:.4rem .6rem;border-radius:6px;text-decoration:none}
+    .nav-links a:focus,.nav-links a:hover{background:rgba(255,255,255,0.04);outline:none}
+
+    /* Focus styles */
+    :focus-visible{outline:3px solid rgba(255,209,102,.9);outline-offset:3px}
+
+    /* Prefer reduced motion */
+    @media (prefers-reduced-motion: reduce){*{transition:none!important}}
+
+    /* Responsive tweaks */
+    @media (max-width:700px){.nav-links{display:none}}
+    /* Hide/show pages for SPA-style navigation */
+    .hidden{display:none!important}
+    .nav-links a.active{background:rgba(255,209,102,0.12);color:var(--accent);}
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#home">Skip to content</a>
+
+  <!-- Loader -->
+  <div class="loader-wrapper">
+    <div class="coffee-loader"></div>
+  </div>
+
+  <!-- Navbar -->
+  <header class="header">
+    <nav class="navbar container" role="navigation" aria-label="Main navigation">
+      <div class="logo">
+        <i class="fa-solid fa-mug-hot"></i>
+        Brew Haven
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#featured">Coffee</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="overlay"></div>
+
+    <!-- Coffee Steam -->
+    <div class="steam steam1"></div>
+    <div class="steam steam2"></div>
+    <div class="steam steam3"></div>
+
+    <div class="hero-content">
+      <h1 class="fade-up hero-title">Brewed Reverie</h1>
+      <p class="fade-up">
+        Sip slow, savor warmth, and wander through a softly lit coffee haven
+        where every cup is a quiet celebration.
+      </p>
+
+      <a href="#menu" class="btn fade-up">Wander the Menu</a>
+    </div>
+  </section>
+
+  <!-- Featured Coffee -->
+  <section class="featured section" id="featured">
+    <div class="container">
+      <div class="section-title">
+        <h2>Featured Coffees</h2>
+        <p>Liquid poetry in every cup, poured with care and calm.</p>
+      </div>
+
+      <div class="coffee-grid">
+
+        <div class="coffee-card reveal">
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1200&auto=format&fit=crop"
+            alt="Latte">
+          <div class="coffee-content">
+            <h3>Caramel Latte</h3>
+            <span>$5.90</span>
+            <p>Soft espresso folded into warm caramel and silky steamed milk.</p>
+          </div>
+        </div>
+
+        <div class="coffee-card reveal">
+          <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=1200&auto=format&fit=crop"
+            alt="Espresso">
+          <div class="coffee-content">
+            <h3>Dark Espresso</h3>
+            <span>$4.20</span>
+            <p>Deep, polished espresso with roasted notes and steady heat.</p>
+          </div>
+        </div>
+
+        <div class="coffee-card reveal">
+          <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=1200&auto=format&fit=crop"
+            alt="Cappuccino">
+          <div class="coffee-content">
+            <h3>Classic Cappuccino</h3>
+            <span>$6.10</span>
+            <p>Creamy foam crowned over rich espresso for a timeless sip.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu -->
+  <section class="menu section" id="menu">
+    <div class="container">
+
+      <div class="section-title">
+        <h2>Curated Menu</h2>
+        <p>A soft spread of sweet, savory, and comforting favorites.</p>
+      </div>
+
+      <div class="menu-grid">
+
+        <div class="menu-card reveal">
+          <h3>Coffee</h3>
+
+          <div class="menu-item">
+            <div>
+              <h4>Mocha</h4>
+              <p>⭐⭐⭐⭐⭐</p>
+            </div>
+            <span>$5.50</span>
+          </div>
+
+          <div class="menu-item">
+            <div>
+              <h4>Americano</h4>
+              <p>⭐⭐⭐⭐</p>
+            </div>
+            <span>$4.10</span>
+          </div>
+        </div>
+
+        <div class="menu-card reveal">
+          <h3>Desserts</h3>
+
+          <div class="menu-item">
+            <div>
+              <h4>Chocolate Cake</h4>
+              <p>⭐⭐⭐⭐⭐</p>
+            </div>
+            <span>$7.20</span>
+          </div>
+
+          <div class="menu-item">
+            <div>
+              <h4>Cheesecake</h4>
+              <p>⭐⭐⭐⭐</p>
+            </div>
+            <span>$6.00</span>
+          </div>
+        </div>
+
+        <div class="menu-card reveal">
+          <h3>Cold Drinks</h3>
+
+          <div class="menu-item">
+            <div>
+              <h4>Iced Latte</h4>
+              <p>⭐⭐⭐⭐⭐</p>
+            </div>
+            <span>$5.30</span>
+          </div>
+
+          <div class="menu-item">
+            <div>
+              <h4>Cold Brew</h4>
+              <p>⭐⭐⭐⭐</p>
+            </div>
+            <span>$4.80</span>
+          </div>
+        </div>
+
+        <div class="menu-card reveal">
+          <h3>Snacks</h3>
+
+          <div class="menu-item">
+            <div>
+              <h4>French Fries</h4>
+              <p>⭐⭐⭐⭐</p>
+            </div>
+            <span>$3.50</span>
+          </div>
+
+          <div class="menu-item">
+            <div>
+              <h4>Club Sandwich</h4>
+              <p>⭐⭐⭐⭐⭐</p>
+            </div>
+            <span>$6.90</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about section" id="about">
+    <div class="container about-grid">
+
+      <div class="about-content reveal">
+        <h2>Our Café Story</h2>
+        <p>
+          Brew Haven is a quiet refuge for slow mornings, lingering chats,
+          and handcrafted moments. Every cup is made to feel warm, calm, and
+          beautifully simple.
+        </p>
+
+        <div class="stats">
+          <div class="stat-box">
+            <h3 data-target="15">0</h3>
+            <p>Years</p>
+          </div>
+
+          <div class="stat-box">
+            <h3 data-target="2000">0</h3>
+            <p>Happy Customers</p>
+          </div>
+
+          <div class="stat-box">
+            <h3 data-target="45">0</h3>
+            <p>Menu Items</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-mini reveal">
+        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1200&auto=format&fit=crop"
+          alt="cafe">
+        <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=1200&auto=format&fit=crop"
+          alt="coffee">
+      </div>
+
+    </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="reviews section" id="reviews">
+    <div class="container">
+
+      <div class="section-title">
+        <h2>Customer Reviews</h2>
+        <p>Glimpses of the moments our guests cherish.</p>
+      </div>
+      <div class="review-slider">
+
+        <div class="review-card active">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="">
+          <h3>Emily Watson</h3>
+          <p>
+            “The ambiance felt like a warm embrace, and every sip was smooth,
+            calm, and beautifully balanced.”
+          </p>
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+        </div>
+
+        <div class="review-card">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="">
+          <h3>Daniel Smith</h3>
+          <p>
+            “Decadent desserts and a serene atmosphere made this café a true
+            escape from the rush.”
+          </p>
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+        </div>
+
+        <div class="review-card">
+          <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="">
+          <h3>Sophia Lee</h3>
+          <p>
+            “A cozy hideaway with gentle service and coffee that feels both
+            elegant and familiar.”
+          </p>
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Reservation -->
+  <section class="reservation section">
+    <div class="container">
+
+      <div class="section-title">
+        <h2>Reserve Your Nook</h2>
+        <p>Save a warm seat and let the day unfold in comfort.</p>
+      </div>
+
+      <form class="reservation-form reveal" aria-label="Reservation form">
+        <label class="sr-only">Your Name
+          <input type="text" placeholder="Your Name" aria-label="Your name" required>
+        </label>
+
+        <label class="sr-only">Email Address
+          <input type="email" placeholder="Email Address" aria-label="Email address" required>
+        </label>
+
+        <label class="sr-only">Date
+          <input type="date" aria-label="Reservation date" required>
+        </label>
+
+        <label class="sr-only">Time
+          <input type="time" aria-label="Reservation time" required>
+        </label>
+
+        <label class="sr-only">Guests
+          <input type="number" placeholder="Guests" aria-label="Number of guests" min="1" required>
+        </label>
+
+        <button type="submit" class="btn">Reserve Now</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery section" id="gallery">
+    <div class="container">
+
+      <div class="section-title">
+        <h2>Café Gallery</h2>
+        <p>A soft portrait of coffee, light, and quiet delight.</p>
+      </div>
+
+      <div class="gallery-grid">
+
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1200&auto=format&fit=crop"
+          alt="">
+
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop"
+          alt="">
+
+        <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=1200&auto=format&fit=crop"
+          alt="">
+
+        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1200&auto=format&fit=crop"
+          alt="">
+
+        <img src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?q=80&w=1200&auto=format&fit=crop"
+          alt="">
+
+        <img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?q=80&w=1200&auto=format&fit=crop"
+          alt="">
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact section" id="contact">
+    <div class="container contact-grid">
+
+      <div class="contact-info reveal">
+        <h2>Contact Us</h2>
+
+        <p><i class="fa-solid fa-location-dot"></i> 25 Coffee Street, Downtown</p>
+
+        <p><i class="fa-solid fa-phone"></i> +1 234 567 890</p>
+
+        <p><i class="fa-solid fa-envelope"></i> hello@brewhaven.com</p>
+
+        <p><i class="fa-solid fa-clock"></i> Mon - Sun : 8AM - 11PM</p>
+      </div>
+
+      <div class="map-placeholder reveal">
+        <h3>Google Maps</h3>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+
+      <div>
+        <h3>Brew Haven Café</h3>
+        <p>A gentle ritual of premium coffee and slow mornings.</p>
+      </div>
+
+      <div>
+        <h4>Quick Links</h4>
+
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Newsletter</h4>
+
+        <div class="newsletter">
+          <input type="email" placeholder="Your Email">
+          <button>Subscribe</button>
+        </div>
+      </div>
+
+      <div>
+        <h4>Follow Us</h4>
+
+        <div class="socials">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="copyright">
+      © 2026 Brew Haven Café. All rights reserved.
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // SPA-like navigation: show/hide sections based on hash
+    (function(){
+      const navLinks = document.querySelectorAll('.nav-links a');
+      const hero = document.getElementById('home');
+
+      function clearActive(){navLinks.forEach(a=>a.classList.remove('active'))}
+
+      function showTarget(target){
+        // hide all sections and hero
+        document.querySelectorAll('.section, .hero').forEach(el=>el.classList.add('hidden'));
+
+        const el = document.getElementById(target);
+        if(el){
+          el.classList.remove('hidden');
+        } else {
+          // fallback to hero
+          hero.classList.remove('hidden');
+        }
+        // update active link
+        clearActive();
+        const activeLink = document.querySelector(`.nav-links a[href="#${target}"]`);
+        if(activeLink) activeLink.classList.add('active');
+        // scroll to top for new page
+        window.scrollTo({top:0,behavior:'smooth'});
+      }
+
+      function handleHash(){
+        const hash = location.hash.replace('#','') || 'home';
+        showTarget(hash);
+      }
+
+      // initialize: hide all sections except hero, then show hash target if present
+      document.addEventListener('DOMContentLoaded', ()=>{
+        // keep hero visible initially
+        document.querySelectorAll('.section').forEach(s=>s.classList.add('hidden'));
+        // allow hash to control initial view
+        handleHash();
+      });
+
+      // respond to hash changes
+      window.addEventListener('hashchange', handleHash);
+
+      // make nav links set the hash (default behavior) but ensure active state updates
+      navLinks.forEach(a=>a.addEventListener('click', ()=>{
+        // let the hashchange handler manage the view
+        // small delay to ensure hash is updated
+        setTimeout(handleHash,10);
+      }));
+    })();
+  </script>
+</body>
+</html>
